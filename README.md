@@ -34,12 +34,6 @@ Tweet Processing API adalah aplikasi Flask yang digunakan untuk memproses tweet 
     source venv/bin/activate   # Pada Windows: venv\Scripts\activate
     ```
 
-3. Instal dependensi:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 4. Buat database SQLite dan tabel yang diperlukan:
 
     ```bash
