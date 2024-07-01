@@ -1,0 +1,90 @@
+swagger: '2.0'
+info:
+  description: API untuk memproses tweet
+  version: 1.0.0
+  title: Tweet Processing API
+host: localhost:5000
+basePath: /
+tags:
+  - name: tweets
+    description: Operasi terkait tweet
+schemes:
+  - http
+paths:
+  /original_tweets:
+    get:
+      tags:
+        - tweets
+      summary: Mendapatkan daftar tweet asli
+      description: Mengembalikan daftar tweet asli yang telah disimpan di database
+      responses:
+        200:
+          description: Daftar tweet asli berhasil diambil
+          schema:
+            type: object
+            properties:
+              original_tweets:
+                type: array
+                items:
+                  type: string
+  /process_tweets_file:
+    get:
+      tags:
+        - tweets
+      summary: Memproses file tweet.csv
+      description: Memproses file tweet.csv dan mengembalikan tweet asli dan yang telah dibersihkan dalam format JSON
+      responses:
+        200:
+          description: File tweet berhasil diproses
+          schema:
+            type: object
+            properties:
+              original_tweets:
+                type: array
+                items:
+                  type: string
+              cleaned_tweets:
+                type: array
+                items:
+                  type: string
+  /tweet_text:
+    post:
+      tags:
+        - tweets
+      summary: Memproses tweet yang dimasukkan melalui form
+      description: Memproses tweet yang dimasukkan melalui form dan mengembalikan hasilnya
+      parameters:
+        - name: tweet
+          in: formData
+          description: Tweet yang akan diproses
+          required: true
+          type: string
+      responses:
+        200:
+          description: Tweet berhasil diproses dan disimpan ke database
+          schema:
+            type: object
+            properties:
+              original_tweet:
+                type: string
+              processed_tweet:
+                type: string
+  /upload_process:
+    post:
+      tags:
+        - tweets
+      summary: Mengunggah dan memproses file CSV berisi tweet
+      description: Mengunggah file CSV berisi tweet, memprosesnya, dan mengembalikan hasil dalam format CSV
+      parameters:
+        - name: file
+          in: formData
+          description: File CSV berisi tweet
+          required: true
+          type: file
+      responses:
+        200:
+          description: File CSV berhasil diproses dan dikembalikan dalam format CSV
+          schema:
+            type: file
+        400:
+          description: Kesalahan dalam mengunggah atau memproses file
